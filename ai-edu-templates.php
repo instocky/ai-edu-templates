@@ -16,7 +16,7 @@
  * Plugin Name:       AI Edu Templates
  * Plugin URI:        https://site.com
  * Description:       This is a description of the plugin.
- * Version:           0.7.21.19
+ * Version:           0.7.21.20
  * Author:            Ai Dev
  * Author URI:        https://site.com/author/
  * License:           GPL-2.0+
@@ -32,10 +32,10 @@ if (!defined('WPINC')) {
 
 /**
  * Currently plugin version.
- * Start at version 0.7.21.19 and use SemVer - https://semver.org
+ * Start at version 0.7.21.20 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define('AI_EDU_TEMPLATES_VERSION', '0.7.21.19');
+define('AI_EDU_TEMPLATES_VERSION', '0.7.21.20');
 
 /**
  * The code that runs during plugin activation.
@@ -74,7 +74,7 @@ add_action('admin_menu', 'ai_edu_templates_menu');
  * This function creates a new top-level menu item in the WordPress admin panel
  * for managing AI Education Templates settings.
  *
- * @since    0.7.21.19
+ * @since    0.7.21.20
  */
 function ai_edu_templates_menu()
 {
@@ -98,7 +98,7 @@ add_action('admin_footer', 'ai_edu_templates_menu_title_script');
  * This function injects a small JavaScript snippet into the admin footer
  * to add a custom tooltip to the AI Education Templates menu item.
  *
- * @since    0.7.21.19
+ * @since    0.7.21.20
  */
 function ai_edu_templates_menu_title_script()
 {
@@ -123,7 +123,7 @@ function ai_edu_templates_menu_title_script()
  * This function is responsible for displaying the content of the
  * AI Education Templates settings page in the WordPress admin panel.
  *
- * @since    0.7.21.19
+ * @since    0.7.21.20
  */
 function ai_edu_templates_settings_page()
 {
@@ -149,7 +149,7 @@ add_action('admin_init', 'ai_edu_templates_settings');
  * This function registers the settings, sections, and fields
  * for the AI Education Templates plugin options.
  *
- * @since    0.7.21.19
+ * @since    0.7.21.20
  */
 function ai_edu_templates_settings()
 {
@@ -164,7 +164,7 @@ function ai_edu_templates_settings()
  * This function outputs the HTML for the setting field in the
  * AI Education Templates settings page.
  *
- * @since    0.7.21.19
+ * @since    0.7.21.20
  */
 function ai_edu_templates_field_callback()
 {
@@ -172,6 +172,24 @@ function ai_edu_templates_field_callback()
 	echo '<input type="text" name="ai_edu_templates_option" value="' . esc_attr($value) . '" />';
 }
 
+add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'ai_edu_templates_add_link');
+
+/**
+ * Добавляет ссылку "Настройки" в список действий плагина на странице плагинов WordPress.
+ *
+ * Эта функция перехватывает массив ссылок действий плагина и добавляет
+ * новую ссылку на страницу настроек в начало списка.
+ *
+ * @since     0.7.21.20
+ * @param     array    $links    Массив ссылок действий плагина.
+ * @return    array    Модифицированный массив ссылок с добавленной ссылкой "Настройки".
+ */
+function ai_edu_templates_add_link($links)
+{
+	$settings_link = '<a href="' . admin_url('admin.php?page=ai-edu-templates-settings') . '">Настройки</a>';
+	$links = array_merge(array('settings' => $settings_link), $links);
+	return $links;
+}
 
 /**
  * Begins execution of the plugin.
@@ -180,7 +198,7 @@ function ai_edu_templates_field_callback()
  * then kicking off the plugin from this point in the file does
  * not affect the page life cycle.
  *
- * @since    0.7.21.19
+ * @since    0.7.21.20
  */
 function run_ai_edu_templates()
 {
